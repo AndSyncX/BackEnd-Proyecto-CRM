@@ -22,38 +22,41 @@ public class ClientService {
 
     public ClientDto getClientDtoById(int id) {
         Client client = getClientById(id);
-        ClientDto clientDto = new ClientDto();
-        clientDto.setIdclient(client.getIdclient());
-        clientDto.setName(clientDto.getName());
-        clientDto.setCompany(client.getCompany());
-        clientDto.setEmail(client.getEmail());
-        clientDto.setPhone(client.getPhone());
-        clientDto.setNotes(client.getNotes());
-        clientDto.setIduser(client.getUser().getId());
-        return clientDto;
+        ClientDto dto = new ClientDto();
+        dto.setIdclient(client.getIdclient());
+        dto.setName(client.getName());
+        dto.setCompany(client.getCompany());
+        dto.setEmail(client.getEmail());
+        dto.setPhone(client.getPhone());
+        dto.setNotes(client.getNotes());
+        dto.setIduser(client.getUser().getId());
+        return dto;
     }
 
-    public void saveClient(ClientDto clientDto) {
-        if (clientDto.getIdclient() != null ){
-            //Es una actualización
-            clientRepository.updateParcialClient(
-                    clientDto.getName(),
-                    clientDto.getCompany(),
-                    clientDto.getPhone(),
-                    clientDto.getNotes(),
-                    clientDto.getIduser(),
-                    clientDto.getIdclient()
-            );
-        } else {
-            //Es un registro nuevo
-            Client client = new Client();
-            client.setName(clientDto.getName());
-            client.setCompany(clientDto.getCompany());
-            client.setEmail(clientDto.getEmail());
-            client.setPhone(clientDto.getPhone());
-            client.setNotes(clientDto.getNotes());
-            client.setUser(userRepository.findById(clientDto.getIduser()).orElse(null));
-            clientRepository.save(client);
+    public Client createClient(ClientDto dto) {
+        Client client = new Client();
+        client.setName(dto.getName());
+        client.setCompany(dto.getCompany());
+        client.setEmail(dto.getEmail());
+        client.setPhone(dto.getPhone());
+        client.setNotes(dto.getNotes());
+        client.setUser(userRepository.findById(dto.getIduser()).orElse(null));
+        return clientRepository.save(client);
+    }
+
+    public ClientDto updateClient(ClientDto dto, int id) {
+        if (!clientRepository.existsById(id)){
+            throw new RuntimeException("Cliente no encontrado");
         }
+        clientRepository.updateParcialClient(
+                dto.getName(),
+                dto.getCompany(),
+                dto.getEmail(),
+                dto.getPhone(),
+                dto.getNotes(),
+                dto.getIduser(),
+                id
+        );
+        return dto;
     }
 }

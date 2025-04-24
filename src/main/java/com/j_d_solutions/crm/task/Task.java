@@ -1,10 +1,7 @@
 package com.j_d_solutions.crm.task;
 
 import com.j_d_solutions.crm.client.Client;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
@@ -13,6 +10,8 @@ import java.util.Date;
 @Data
 @Table(name = "tasks")
 public class Task {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idtask;
     private String title;
     @ManyToOne
