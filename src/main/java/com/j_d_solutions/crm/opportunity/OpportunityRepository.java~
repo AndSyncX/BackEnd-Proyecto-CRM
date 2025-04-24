@@ -17,7 +17,7 @@ public interface OpportunityRepository extends JpaRepository<Opportunity, Intege
             WHERE idopportunity = :idopportunity
             """, nativeQuery = true)
     void updateParcialOpportunity(
-            @Param("title") String title,
+            @Param("title") Integer title,
             @Param("idclient") Integer idclient,
             @Param("status") String status,
             @Param("value") Double value,

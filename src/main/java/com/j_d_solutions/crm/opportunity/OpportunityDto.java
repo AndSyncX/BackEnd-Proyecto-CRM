@@ -7,6 +7,7 @@ import java.util.Date;
 public class OpportunityDto {
     private Integer idopportunity;
     private String title;
+    private Integer idclient;
     private String status;
     private Double value;
     private Date due_date;

@@ -35,7 +35,6 @@ public class TaskService {
     public void saveTask(TaskDto taskDto) {
         if (taskDto.getIdtask() != null ){
             taskRepository.updateParcialTask(
-                    taskDto.getTitle(),
                     taskDto.getIdclient(),
                     taskDto.getType(),
                     taskDto.getDue_date(),

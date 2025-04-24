@@ -1,5 +1,6 @@
 package com.j_d_solutions.crm.task;
 
+import com.j_d_solutions.crm.client.Client;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -16,7 +17,7 @@ public class Task {
     private String title;
     @ManyToOne
     @JoinColumn(name = "idclient")
-    private Integer idclient;
+    private Client client;
     private String type;
     private Date due_date;
     private String notes;
