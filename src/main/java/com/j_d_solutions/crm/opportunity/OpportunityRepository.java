@@ -1,4 +1,6 @@
 package com.j_d_solutions.crm.opportunity;
 
-public interface OpportunityRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface OpportunityRepository extends JpaRepository<Opportunity, Integer> {
 }
