@@ -32,24 +32,28 @@ public class TaskService {
         return taskDto;
     }
 
-    public void saveTask(TaskDto taskDto) {
-        if (taskDto.getIdtask() != null ){
-            taskRepository.updateParcialTask(
-                    taskDto.getTitle(),
-                    taskDto.getIdclient(),
-                    taskDto.getType(),
-                    taskDto.getDue_date(),
-                    taskDto.getNotes(),
-                    taskDto.getIdtask()
-            );
-        } else {
-            Task task = new Task();
-            task.setTitle(taskDto.getTitle());
-            task.setClient(clientRepository.findById(taskDto.getIdclient()).orElse(null));
-            task.setType(taskDto.getType());
-            task.setDue_date(taskDto.getDue_date());
-            task.setNotes(taskDto.getNotes());
-            taskRepository.save(task);
+    public Task createTask(TaskDto dto) {
+        Task task = new Task();
+        task.setTitle(dto.getTitle());
+        task.setClient(clientRepository.findById(dto.getIdclient()).orElse(null));
+        task.setType(dto.getType());
+        task.setDue_date(dto.getDue_date());
+        task.setNotes(dto.getNotes());
+        return taskRepository.save(task);
+    }
+
+    public TaskDto updateTask(TaskDto dto, int id) {
+        if (!taskRepository.existsById(id)){
+            throw new RuntimeException("Tarea no encontrada");
         }
+        taskRepository.updateParcialTask(
+                dto.getTitle(),
+                dto.getIdclient(),
+                dto.getType(),
+                dto.getDue_date(),
+                dto.getNotes(),
+                id
+        );
+        return dto;
     }
 }

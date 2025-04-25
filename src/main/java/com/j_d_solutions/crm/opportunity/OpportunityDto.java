@@ -10,5 +10,5 @@ public class OpportunityDto {
     private Integer idclient;
     private String status;
     private Double value;
-    private Date due_date;
+    private Date close_date;
 }

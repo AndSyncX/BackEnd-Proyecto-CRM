@@ -32,9 +32,20 @@ public class TaskService {
         return taskDto;
     }
 
+    public Task crateTask(TaskDto dto) {
+        Task task = new Task();
+        task.setTitle(dto.getTitle());
+        task.setClient(clientRepository.findById(dto.getIdclient()).orElse(null));
+        task.setType(dto.getType());
+        task.setDue_date(dto.getDue_date());
+        task.setNotes(dto.getNotes());
+        return taskRepository.save(task);
+    }
+
     public void saveTask(TaskDto taskDto) {
         if (taskDto.getIdtask() != null ){
             taskRepository.updateParcialTask(
+                    taskDto.getTitle(),
                     taskDto.getIdclient(),
                     taskDto.getType(),
                     taskDto.getDue_date(),

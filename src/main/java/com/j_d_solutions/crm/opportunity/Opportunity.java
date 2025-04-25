@@ -19,5 +19,5 @@ public class Opportunity {
     private Client client;
     private String status;
     private Double value;
-    private Date due_date;
+    private Date close_date;
 }
