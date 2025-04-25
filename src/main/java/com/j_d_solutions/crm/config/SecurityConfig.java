@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -21,7 +23,7 @@ public class SecurityConfig {
         http
                 // Desactiva la protección CSRF (útil si no usas formularios, por ejemplo, con Postman o API REST).
                 .csrf(AbstractHttpConfigurer::disable)
-                // Protege todas las rutas que empiezan y pide que el usuario esté autenticado.
+                // Protege todas las rutas y pide que el usuario esté autenticado.
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().authenticated()
                 )
@@ -35,9 +37,15 @@ public class SecurityConfig {
     public UserDetailsService users() {
         UserDetails user = User.builder()
                 .username("user")
-                .password("{noop}4a818901-d150-43ab-aa49-8c33bb288ef2")
-                .roles("USER")
+                .password(passwordEncoder().encode("1234"))
+                .roles()
                 .build();
         return new InMemoryUserDetailsManager(user);
+    }
+
+    // Encriptar la contraseña
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
