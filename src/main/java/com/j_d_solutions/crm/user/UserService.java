@@ -18,7 +18,24 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
-    public void saveUser(User user){
-        userRepository.save(user);
+    public User createUser(UserDto dto) {
+        User user = new User();
+        user.setUsername(dto.getUsername());
+        user.setPassword(dto.getPassword());
+        user.setRole(dto.getRole());
+        return userRepository.save(user);
+    }
+
+    public UserDto updateUser(UserDto dto, int id) {
+        if (!userRepository.existsById(id)){
+            throw new RuntimeException("Usuario no encontrado");
+        }
+        userRepository.UpdateUserParcial(
+                dto.getUsername(),
+                dto.getPassword(),
+                dto.getRole(),
+                id
+        );
+        return dto;
     }
 }
