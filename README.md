@@ -14,9 +14,15 @@ Equipos de ventas de 2 a 10 personas que aún usan Excel o papel.
 🛠 Tecnologías
 
 Backend (Spring Boot) - Completado:
+
 Java 17+
+
 Spring Boot, Spring Security (JWT)
+
 API RESTful modular
+
 PostgreSQL + JPA/Hibernate
+
 Validaciones + control de errores
+
 Organización por dominios (user, client, opportunity, task)
